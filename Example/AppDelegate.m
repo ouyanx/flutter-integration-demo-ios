@@ -8,6 +8,12 @@
 
 #import "AppDelegate.h"
 
+#define TEST_FLUTTER 0
+#if TEST_FLUTTER
+#import <flutter_integration/FlutterIntegrationManager.h>
+#import <flutter_integration/FlutterIntegrationHostViewController.h>
+#endif
+
 @interface AppDelegate ()
 
 @end
@@ -17,6 +23,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
+#if TEST_FLUTTER
+    [[FlutterIntegrationManager sharedInstance] initEngine];
+#endif
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = UIColor.whiteColor;
@@ -32,7 +42,13 @@
     vc1.view.backgroundColor = UIColor.whiteColor;
     vc1.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"tab1" image:nil tag:0];
     vc1.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -16);
+    
+#if TEST_FLUTTER
+    FlutterIntegrationHostViewController *vc2 = [[FlutterIntegrationHostViewController alloc] initWithRouteName:@"test" params:nil];
+#else
     UIViewController *vc2 = [[UIViewController alloc] init];
+#endif
+    
     vc2.view.backgroundColor = UIColor.grayColor;
     vc2.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"tab2" image:nil tag:0];
     vc2.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -16);
@@ -41,8 +57,5 @@
     self.window.rootViewController = rvc;
     return YES;
 }
-
-
-
 
 @end
