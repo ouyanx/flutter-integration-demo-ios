@@ -10,8 +10,8 @@
 
 #define TEST_FLUTTER 0
 #if TEST_FLUTTER
-#import <flutter_integration/FlutterIntegrationManager.h>
-#import <flutter_integration/FlutterIntegrationHostViewController.h>
+#import <FlutterIntegrationManager.h>
+#import <FlutterIntegrationHostViewController.h>
 #endif
 
 @interface AppDelegate ()
